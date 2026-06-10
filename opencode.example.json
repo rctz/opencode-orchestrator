@@ -1,0 +1,269 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "litellm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LiteLLM Gateway",
+      "options": {
+        "baseURL": "YOUR_URL_HERE",
+        "apiKey": "YOUR_API_KEY_HERE"
+      },
+      "models": {
+        "kimi-k2.6": {
+          "name": "kimi-k2.6"
+        },
+        "Deepseek-V4-Pro": {
+          "name": "Deepseek-V4-Pro"
+        },
+        "Deepseek-V4-Flash": {
+          "name": "Deepseek-V4-Flash"
+        },
+        "claude-sonnet-4-6": {
+          "name": "claude-sonnet-4-6"
+        }
+      }
+    }
+  },
+  "model": "kimi-k2.6",
+  "lsp": true,
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": [
+        "bunx",
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--browserUrl",
+        "http://127.0.0.1:9222"
+      ]
+    },
+    "deepwiki": {
+      "type": "remote",
+      "url": "https://mcp.deepwiki.com/mcp",
+      "oauth": false
+    }
+  },
+  "tools": {
+    "chrome-devtools_*": true,
+    "chrome-devtools_lighthouse_audit": false,
+    "chrome-devtools_performance_analyze_insight": false,
+    "chrome-devtools_performance_start_trace": false,
+    "chrome-devtools_performance_stop_trace": false,
+    "chrome-devtools_take_memory_snapshot": false,
+    "chrome-devtools_emulate": false
+  },
+  "formatter": true,
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "git branch *": "allow",
+      "git show *": "allow",
+      "git stash show *": "allow",
+      "git rev-parse *": "allow",
+      "git rev-list *": "allow",
+      "git ls-tree *": "allow",
+      "git ls-files *": "allow",
+      "git describe *": "allow",
+      "cat *": "allow",
+      "grep *": "allow",
+      "ls *": "allow",
+      "pwd": "allow",
+      "which *": "allow",
+      "date": "allow",
+      "whoami": "allow",
+      "uname *": "allow",
+      "bun run *": "allow",
+      "php artisan test *": "allow",
+      "docker exec -i ff_app *": "allow",
+      "systemctl *": "ask",
+      "vendor/bin/pint *": "allow",
+      "sudo *": "ask"
+    },
+    "lsp": "allow",
+    "edit": {
+      "*": "ask"
+    }
+  },
+  "plugin": [
+    "@warp-dot-dev/opencode-warp",
+    "@cortexkit/opencode-magic-context@latest",
+    "@slkiser/opencode-quota"
+  ],
+  "compaction": {
+    "auto": false,
+    "prune": false
+  },
+  "agent": {
+    "general": {
+      "mode": "subagent",
+      "model": "litellm/Deepseek-V4-Flash",
+      "permission": {
+        "*": "deny",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "allow",
+        "write": "allow",
+        "bash": {
+          "*": "ask",
+          "git status*": "allow",
+          "git diff *": "allow",
+          "git log *": "allow",
+          "git branch *": "allow",
+          "git show *": "allow",
+          "git stash show *": "allow",
+          "git rev-parse *": "allow",
+          "git rev-list *": "allow",
+          "git ls-tree *": "allow",
+          "git ls-files *": "allow",
+          "git describe *": "allow",
+          "cat *": "allow",
+          "grep *": "allow",
+          "ls *": "allow",
+          "pwd": "allow",
+          "which *": "allow",
+          "date": "allow",
+          "whoami": "allow",
+          "uname *": "allow",
+          "bun run *": "allow",
+          "php artisan test *": "allow",
+          "docker exec -i ff_app *": "allow",
+          "systemctl *": "ask",
+          "vendor/bin/pint *": "allow",
+          "sudo *": "ask"
+        },
+        "task": "allow",
+        "todowrite": "allow",
+        "question": "allow",
+        "skill": "allow",
+        "doom_loop": "allow",
+        "external_directory": "allow"
+      }
+    },
+    "explore": {
+      "mode": "subagent",
+      "model": "litellm/Deepseek-V4-Flash",
+      "permission": {
+        "*": "deny",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "external_directory": "allow",
+        "doom_loop": "allow",
+        "bash": {
+          "*": "deny",
+          "cat *": "allow",
+          "grep *": "allow",
+          "git status*": "allow",
+          "git diff *": "allow",
+          "git log *": "allow",
+          "git branch *": "allow",
+          "git show *": "allow",
+          "git stash show *": "allow",
+          "git rev-parse *": "allow",
+          "git rev-list *": "allow",
+          "git ls-tree *": "allow",
+          "git ls-files *": "allow",
+          "git describe *": "allow"
+        }
+      }
+    },
+    "scout": {
+      "description": "Read-only research subagent that prefers DeepWiki, then Context7, then web fallback",
+      "mode": "subagent",
+      "model": "litellm/Deepseek-V4-Flash",
+      "prompt": "{file:./agents/scout.md}",
+      "permission": {
+        "*": "deny",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "external_directory": "allow",
+        "doom_loop": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "skill": "allow",
+        "context7_*": "allow",
+        "deepwiki_*": "allow",
+        "bash": {
+          "*": "deny",
+          "cat *": "allow",
+          "grep *": "allow",
+          "git status*": "allow",
+          "git diff *": "allow",
+          "git log *": "allow",
+          "git branch *": "allow",
+          "git show *": "allow",
+          "git stash show *": "allow",
+          "git rev-parse *": "allow",
+          "git rev-list *": "allow",
+          "git ls-tree *": "allow",
+          "git ls-files *": "allow",
+          "git describe *": "allow"
+        }
+      }
+    },
+    "orchestrator": {
+      "description": "Orchestrates work through subagents first, while keeping direct built-in tools available for fallback and verification",
+      "mode": "primary",
+      "model": "litellm/Deepseek-V4-Pro",
+      "prompt": "{file:./agents/orchestrator.md}",
+      "permission": {
+        "*": "deny",
+        "read": "allow",
+        "edit": { "*": "ask" },
+        "bash": {
+          "*": "ask",
+          "cat *": "allow",
+          "git status*": "allow",
+          "git diff *": "allow",
+          "git log *": "allow",
+          "grep *": "allow",
+          "ls *": "allow",
+          "pwd": "allow",
+          "which *": "allow",
+          "date": "allow",
+          "whoami": "allow",
+          "uname *": "allow",
+          "bun run *": "allow",
+          "php artisan test *": "allow",
+          "docker exec -i ff_app *": "allow",
+          "systemctl *": "ask",
+          "vendor/bin/pint *": "allow",
+          "sudo *": "ask"
+        },
+        "task": "allow",
+        "todowrite": "allow",
+        "question": "allow",
+        "skill": "allow",
+        "doom_loop": "allow",
+        "stitch_*": "allow",
+        "ctx_*": "allow",
+        "chrome-devtools_*": "allow",
+        "chrome-devtools_lighthouse_audit": "deny",
+        "chrome-devtools_performance_analyze_insight": "deny",
+        "chrome-devtools_performance_start_trace": "deny",
+        "chrome-devtools_performance_stop_trace": "deny",
+        "chrome-devtools_take_memory_snapshot": "deny",
+        "chrome-devtools_emulate": "deny"
+      }
+    },
+    "compaction": {
+      "mode": "primary",
+      "model": "litellm/Deepseek-V4-Pro",
+      "permission": {
+        "doom_loop": "allow"
+      }
+    }
+  }
+}
