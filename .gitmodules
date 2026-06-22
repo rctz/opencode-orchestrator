@@ -1,0 +1,3 @@
+[submodule "skills/stop-slop"]
+	path = skills/stop-slop
+	url = git@github.com:hardikpandya/stop-slop.git
