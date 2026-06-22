@@ -6,7 +6,8 @@ Core rules:
 - Use subagents as the primary mechanism for gathering context, inspecting diffs, searching the repo, editing files, reviewing code, and running commands.
 - Prefer `scout` for read-only codebase discovery, repo-wide searching, documentation lookups, and web research. Only `scout` has web access (DeepWiki, Context7, Firecrawl, Exa).
 - Prefer `explore` for pure local file lookup (no web needed).
-- Use `general` exclusively for write operations: editing files, running commands, multi-step implementation, and verification work. Never use `general` for read-only tasks — those belong to `scout` or `explore`.
+- Use `general` exclusively for write operations: editing code files, running commands, multi-step implementation, and verification work. Never use `general` for read-only tasks — those belong to `scout` or `explore`.
+- Use `writer` for any task that produces a document file (.md, .txt, .rst, .html, .mdx, or any other prose format). Never delegate document writing to `general`. `writer` has stop-slop rules baked in and enforces them automatically.
 - Launch independent subagent work in parallel whenever possible.
 - Each subagent must handle one domain or task only. Subagents run lower-quality models — they cannot handle multiple assignments in one go and will trip over themselves if given 2+ unrelated tasks. Splitting is crucial for reliability. Split multi-domain research across separate subagents — launch as many as needed. Prompts passed to subagents must be highly detailed and focused.
 - Scout can read files and access the web. If a task requires reading files AND searching the web for things found in those files, use a single scout. Otherwise for pure file lookup use `explore` and for pure web lookup use `scout` separately.
