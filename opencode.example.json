@@ -10,21 +10,71 @@
       },
       "models": {
         "kimi-k2.6": {
-          "name": "kimi-k2.6"
+          "name": "kimi-k2.6",
+          "limit": {
+            "context": 256000,
+            "output": 262144
+          }
         },
         "Deepseek-V4-Pro": {
-          "name": "Deepseek-V4-Pro"
+          "name": "Deepseek-V4-Pro",
+          "limit": {
+            "context": 1000000,
+            "output": 384000
+          }
         },
         "Deepseek-V4-Flash": {
-          "name": "Deepseek-V4-Flash"
+          "name": "Deepseek-V4-Flash",
+          "limit": {
+            "context": 1000000,
+            "output": 384000
+          }
+        },
+        "claude-sonnet-5": {
+          "name": "claude-sonnet-5",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
         },
         "claude-sonnet-4-6": {
-          "name": "claude-sonnet-4-6"
+          "name": "claude-sonnet-4-6",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
+        },
+        "glm-5.2": {
+          "name": "glm-5.2",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
+        },
+        "gpt-5.4": {
+          "name": "gpt-5.4",
+          "limit": {
+            "context": 256000,
+            "output": 128000
+          }
+        },
+        "auto-01": {
+          "name": "auto-01"
         }
+
       }
+    },
+    "opencode-go": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Opencode Go",
+      "options": {
+        "baseURL": "YOUR_URL_HERE",
+        "apiKey": "YOUR_API_KEY_HERE"
+      },
     }
   },
   "model": "kimi-k2.6",
+  "default_agent": "orchestrator",
   "lsp": true,
   "mcp": {
     "context7": {
@@ -94,7 +144,8 @@
   "plugin": [
     "@warp-dot-dev/opencode-warp",
     "@cortexkit/opencode-magic-context@latest",
-    "@slkiser/opencode-quota"
+    "@slkiser/opencode-quota",
+    "@dietrichgebert/ponytail"
   ],
   "compaction": {
     "auto": false,
@@ -103,7 +154,7 @@
   "agent": {
     "general": {
       "mode": "subagent",
-      "model": "litellm/Deepseek-V4-Flash",
+      "model": "opencode-go/deepseek-v4-pro",
       "permission": {
         "*": "deny",
         "read": "allow",
@@ -150,7 +201,7 @@
     },
     "explore": {
       "mode": "subagent",
-      "model": "litellm/Deepseek-V4-Flash",
+      "model": "opencode-go/deepseek-v4-flash",
       "permission": {
         "*": "deny",
         "read": "allow",
@@ -180,7 +231,7 @@
     "scout": {
       "description": "Read-only research subagent that prefers DeepWiki, then Context7, then web fallback",
       "mode": "subagent",
-      "model": "litellm/Deepseek-V4-Flash",
+      "model": "opencode-go/deepseek-v4-flash",
       "prompt": "{file:./agents/scout.md}",
       "permission": {
         "*": "deny",
@@ -216,7 +267,7 @@
     "orchestrator": {
       "description": "Orchestrates work through subagents first, while keeping direct built-in tools available for fallback and verification",
       "mode": "primary",
-      "model": "litellm/Deepseek-V4-Pro",
+      "model": "opencode-go/glm-5.2",
       "prompt": "{file:./agents/orchestrator.md}",
       "permission": {
         "*": "deny",
@@ -260,10 +311,23 @@
     },
     "compaction": {
       "mode": "primary",
-      "model": "litellm/Deepseek-V4-Pro",
+      "model": "opencode-go/deepseek-v4-pro",
       "permission": {
         "doom_loop": "allow"
       }
+    },
+    "writer": {
+      "mode": "subagent",
+      "model": "opencode-go/minimax-m3",
+      "prompt": "{file:./agents/writer.md}",
+      "permission": {
+        "*": "deny",
+        "edit": "allow",
+        "skill": "allow",
+        "write": "allow",
+        "task": "allow",
+        "doom_loop": "allow"
+      }
+    }
     }
   }
-}
