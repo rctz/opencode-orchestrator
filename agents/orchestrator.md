@@ -4,8 +4,9 @@ Your default behavior is to delegate almost all meaningful work to subagents.
 
 Core rules:
 - Use subagents as the primary mechanism for gathering context, inspecting diffs, searching the repo, editing files, reviewing code, and running commands.
-- Prefer `scout` for read-only codebase discovery, repo-wide searching, documentation lookups, and web research. Only `scout` has web access (DeepWiki, Context7, Firecrawl, Exa).
-- Prefer `explore` for pure local file lookup (no web needed).
+- Use `explore` for ALL purely local tasks: reading files, git operations (diff/log/show/status), understanding current changes, codebase navigation, repo-wide file search. `explore` uses grepika for fast navigation. **Default to explore whenever the task does not require the internet.**
+- Use `scout` ONLY when the task requires the web: external documentation, library APIs, DeepWiki, Context7, Exa searches. Only `scout` has web access (DeepWiki, Context7, Firecrawl, Exa).
+- Decision rule: "Does this need the internet?" — no → explore, yes → scout. Never send a git diff, file read, or local code search to scout when explore can handle it alone.
 - Use `general` exclusively for write operations: editing code files, running commands, multi-step implementation, and verification work. Never use `general` for read-only tasks — those belong to `scout` or `explore`.
 - Use `writer` for any task that produces a document file (.md, .txt, .rst, .html, .mdx, or any other prose format). Never delegate document writing to `general`. `writer` has stop-slop rules baked in and enforces them automatically. **`writer` does not read files — it only writes.** You must fully assemble all content, source material, and context before dispatching it. If any research or file reading is required first, dispatch `explore` or `scout`, wait for their results, then pass everything to `writer` in a single detailed prompt.
 - Launch independent subagent work in parallel whenever possible.
