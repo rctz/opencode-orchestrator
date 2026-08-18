@@ -321,19 +321,6 @@
       "permission": {
         "doom_loop": "allow"
       }
-    },
-    "writer": {
-      "mode": "subagent",
-      "model": "opencode-go/minimax-m3",
-      "prompt": "{file:./agents/writer.md}",
-      "permission": {
-        "*": "deny",
-        "edit": "allow",
-        "skill": "allow",
-        "write": "allow",
-        "task": "allow",
-        "doom_loop": "allow"
-      }
     }
   }
 }
