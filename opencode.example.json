@@ -10,7 +10,11 @@
       },
       "models": {
         "kimi-k2.6": {
-          "name": "kimi-k2.6"
+          "name": "kimi-k2.6",
+          "limit": {
+            "context": 256000,
+            "output": 262144
+          }
         },
         "deepseek-v4-pro": {
           "name": "deepseek-v4-pro"
@@ -28,9 +32,18 @@
           "name": "glm-5.3"
         }
       }
+    },
+    "opencode-go": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Opencode Go",
+      "options": {
+        "baseURL": "YOUR_URL_HERE",
+        "apiKey": "YOUR_API_KEY_HERE"
+      }
     }
   },
   "model": "glm-5.3",
+  "default_agent": "orchestrator",
   "lsp": true,
   "mcp": {
     "context7": {
@@ -306,6 +319,19 @@
       "mode": "primary",
       "model": "litellm/glm-5.3",
       "permission": {
+        "doom_loop": "allow"
+      }
+    },
+    "writer": {
+      "mode": "subagent",
+      "model": "opencode-go/minimax-m3",
+      "prompt": "{file:./agents/writer.md}",
+      "permission": {
+        "*": "deny",
+        "edit": "allow",
+        "skill": "allow",
+        "write": "allow",
+        "task": "allow",
         "doom_loop": "allow"
       }
     }
