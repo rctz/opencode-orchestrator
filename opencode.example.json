@@ -12,19 +12,25 @@
         "kimi-k2.6": {
           "name": "kimi-k2.6"
         },
-        "Deepseek-V4-Pro": {
-          "name": "Deepseek-V4-Pro"
+        "deepseek-v4-pro": {
+          "name": "deepseek-v4-pro"
         },
-        "Deepseek-V4-Flash": {
-          "name": "Deepseek-V4-Flash"
+        "deepseek-v4-flash": {
+          "name": "deepseek-v4-flash"
         },
         "claude-sonnet-4-6": {
           "name": "claude-sonnet-4-6"
+        },
+        "glm-5.2": {
+          "name": "glm-5.2"
+        },
+        "glm-5.3": {
+          "name": "glm-5.3"
         }
       }
     }
   },
-  "model": "kimi-k2.6",
+  "model": "glm-5.3",
   "lsp": true,
   "mcp": {
     "context7": {
@@ -61,40 +67,42 @@
     "bash": {
       "*": "ask",
       "git status*": "allow",
-      "git diff *": "allow",
-      "git log *": "allow",
-      "git branch *": "allow",
-      "git show *": "allow",
-      "git stash show *": "allow",
-      "git rev-parse *": "allow",
-      "git rev-list *": "allow",
-      "git ls-tree *": "allow",
-      "git ls-files *": "allow",
-      "git describe *": "allow",
-      "cat *": "allow",
-      "grep *": "allow",
-      "ls *": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git branch*": "allow",
+      "git show*": "allow",
+      "git stash show*": "allow",
+      "git rev-parse*": "allow",
+      "git rev-list*": "allow",
+      "git ls-tree*": "allow",
+      "git ls-files*": "allow",
+      "git describe*": "allow",
+      "cat*": "allow",
+      "grep*": "allow",
+      "ls*": "allow",
       "pwd": "allow",
-      "which *": "allow",
+      "which*": "allow",
       "date": "allow",
       "whoami": "allow",
-      "uname *": "allow",
-      "bun run *": "allow",
-      "php artisan test *": "allow",
-      "docker exec -i ff_app *": "allow",
+      "uname*": "allow",
+      "bun run*": "allow",
+      "php artisan test*": "allow",
+      "ruff*": "allow",
+      "docker exec -i ff_app*": "allow",
       "systemctl *": "ask",
-      "vendor/bin/pint *": "allow",
+      "vendor/bin/pint*": "allow",
       "sudo *": "ask"
     },
     "lsp": "allow",
     "edit": {
-      "*": "ask"
+      "*": "allow"
     }
   },
   "plugin": [
     "@warp-dot-dev/opencode-warp",
     "@cortexkit/opencode-magic-context@latest",
-    "@slkiser/opencode-quota"
+    "@slkiser/opencode-quota",
+    "@dietrichgebert/ponytail"
   ],
   "compaction": {
     "auto": false,
@@ -103,7 +111,7 @@
   "agent": {
     "general": {
       "mode": "subagent",
-      "model": "litellm/Deepseek-V4-Flash",
+      "model": "litellm/deepseek-v4-pro",
       "permission": {
         "*": "deny",
         "read": "allow",
@@ -115,29 +123,30 @@
         "bash": {
           "*": "ask",
           "git status*": "allow",
-          "git diff *": "allow",
-          "git log *": "allow",
-          "git branch *": "allow",
-          "git show *": "allow",
-          "git stash show *": "allow",
-          "git rev-parse *": "allow",
-          "git rev-list *": "allow",
-          "git ls-tree *": "allow",
-          "git ls-files *": "allow",
-          "git describe *": "allow",
-          "cat *": "allow",
-          "grep *": "allow",
-          "ls *": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch*": "allow",
+          "git show*": "allow",
+          "git stash show*": "allow",
+          "git rev-parse*": "allow",
+          "git rev-list*": "allow",
+          "git ls-tree*": "allow",
+          "git ls-files*": "allow",
+          "git describe*": "allow",
+          "cat*": "allow",
+          "grep*": "allow",
+          "ls*": "allow",
           "pwd": "allow",
-          "which *": "allow",
+          "which*": "allow",
           "date": "allow",
           "whoami": "allow",
-          "uname *": "allow",
-          "bun run *": "allow",
-          "php artisan test *": "allow",
-          "docker exec -i ff_app *": "allow",
+          "uname*": "allow",
+          "bun run*": "allow",
+          "php artisan test*": "allow",
+          "ruff*": "allow",
+          "docker exec -i ff_app*": "allow",
           "systemctl *": "ask",
-          "vendor/bin/pint *": "allow",
+          "vendor/bin/pint*": "allow",
           "sudo *": "ask"
         },
         "task": "allow",
@@ -150,7 +159,7 @@
     },
     "explore": {
       "mode": "subagent",
-      "model": "litellm/Deepseek-V4-Flash",
+      "model": "litellm/deepseek-v4-flash",
       "permission": {
         "*": "deny",
         "read": "allow",
@@ -161,26 +170,26 @@
         "doom_loop": "allow",
         "bash": {
           "*": "deny",
-          "cat *": "allow",
-          "grep *": "allow",
+          "cat*": "allow",
+          "grep*": "allow",
           "git status*": "allow",
-          "git diff *": "allow",
-          "git log *": "allow",
-          "git branch *": "allow",
-          "git show *": "allow",
-          "git stash show *": "allow",
-          "git rev-parse *": "allow",
-          "git rev-list *": "allow",
-          "git ls-tree *": "allow",
-          "git ls-files *": "allow",
-          "git describe *": "allow"
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch*": "allow",
+          "git show*": "allow",
+          "git stash show*": "allow",
+          "git rev-parse*": "allow",
+          "git rev-list*": "allow",
+          "git ls-tree*": "allow",
+          "git ls-files*": "allow",
+          "git describe*": "allow"
         }
       }
     },
     "scout": {
       "description": "Read-only research subagent that prefers DeepWiki, then Context7, then web fallback",
       "mode": "subagent",
-      "model": "litellm/Deepseek-V4-Flash",
+      "model": "litellm/deepseek-v4-flash",
       "prompt": "{file:./agents/scout.md}",
       "permission": {
         "*": "deny",
@@ -197,49 +206,61 @@
         "deepwiki_*": "allow",
         "bash": {
           "*": "deny",
-          "cat *": "allow",
-          "grep *": "allow",
+          "cat*": "allow",
+          "grep*": "allow",
           "git status*": "allow",
-          "git diff *": "allow",
-          "git log *": "allow",
-          "git branch *": "allow",
-          "git show *": "allow",
-          "git stash show *": "allow",
-          "git rev-parse *": "allow",
-          "git rev-list *": "allow",
-          "git ls-tree *": "allow",
-          "git ls-files *": "allow",
-          "git describe *": "allow"
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch*": "allow",
+          "git show*": "allow",
+          "git stash show*": "allow",
+          "git rev-parse*": "allow",
+          "git rev-list*": "allow",
+          "git ls-tree*": "allow",
+          "git ls-files*": "allow",
+          "git describe*": "allow"
         }
       }
     },
     "orchestrator": {
       "description": "Orchestrates work through subagents first, while keeping direct built-in tools available for fallback and verification",
       "mode": "primary",
-      "model": "litellm/Deepseek-V4-Pro",
+      "model": "litellm/glm-5.3",
       "prompt": "{file:./agents/orchestrator.md}",
       "permission": {
         "*": "deny",
         "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
         "edit": { "*": "ask" },
         "bash": {
           "*": "ask",
-          "cat *": "allow",
+          "cat*": "allow",
           "git status*": "allow",
-          "git diff *": "allow",
-          "git log *": "allow",
-          "grep *": "allow",
-          "ls *": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git branch*": "allow",
+          "git show*": "allow",
+          "git stash show*": "allow",
+          "git rev-parse*": "allow",
+          "git rev-list*": "allow",
+          "git ls-tree*": "allow",
+          "git ls-files*": "allow",
+          "git describe*": "allow",
+          "grep*": "allow",
+          "ls*": "allow",
           "pwd": "allow",
-          "which *": "allow",
+          "which*": "allow",
           "date": "allow",
           "whoami": "allow",
-          "uname *": "allow",
-          "bun run *": "allow",
-          "php artisan test *": "allow",
-          "docker exec -i ff_app *": "allow",
+          "uname*": "allow",
+          "bun run*": "allow",
+          "php artisan test*": "allow",
+          "ruff*": "allow",
+          "docker exec -i ff_app*": "allow",
           "systemctl *": "ask",
-          "vendor/bin/pint *": "allow",
+          "vendor/bin/pint*": "allow",
           "sudo *": "ask"
         },
         "task": "allow",
@@ -258,9 +279,32 @@
         "chrome-devtools_emulate": "deny"
       }
     },
+    "writer": {
+      "description": "Writes and edits document files (.md, .txt, .rst, .html, .mdx, prose formats) with stop-slop rules enforced. Use for any task that produces a document file.",
+      "mode": "subagent",
+      "model": "litellm/deepseek-v4-flash",
+      "prompt": "{file:./agents/writer.md}",
+      "permission": {
+        "*": "deny",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "allow",
+        "write": "allow",
+        "external_directory": "allow",
+        "doom_loop": "allow",
+        "skill": "allow",
+        "bash": {
+          "*": "deny",
+          "cat*": "allow",
+          "ls*": "allow"
+        }
+      }
+    },
     "compaction": {
       "mode": "primary",
-      "model": "litellm/Deepseek-V4-Pro",
+      "model": "litellm/glm-5.3",
       "permission": {
         "doom_loop": "allow"
       }

@@ -8,6 +8,14 @@ Write or edit document files (.md, .txt, .rst, .html, .mdx, or any prose format)
 
 {file:./skills/stop-slop/SKILL.md}
 
+## Other skills
+
+Beyond the always-on skill above, you have access to installed skills via the `skill` tool.
+
+- If the dispatch prompt suggests a skill, treat that as a hint only — check its description against the actual task before invoking. Don't invoke it just because it was named.
+- Independently check installed skills against the task in front of you, even if none was suggested or a different one was. Use your own judgment.
+- Only invoke a skill on a direct, clear match to what you're doing right now — not a loose or tangential association. When in doubt, don't invoke.
+
 ## Mandatory process
 
 Apply this sequence before writing any file. No exceptions.
