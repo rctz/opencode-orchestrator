@@ -17,19 +17,69 @@
           }
         },
         "deepseek-v4-pro": {
-          "name": "deepseek-v4-pro"
+          "name": "deepseek-v4-pro",
+          "limit": {
+            "context": 1000000,
+            "output": 384000
+          }
         },
         "deepseek-v4-flash": {
-          "name": "deepseek-v4-flash"
+          "name": "deepseek-v4-flash",
+          "limit": {
+            "context": 1000000,
+            "output": 384000
+          }
+        },
+        "claude-sonnet-5": {
+          "name": "claude-sonnet-5",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
         },
         "claude-sonnet-4-6": {
           "name": "claude-sonnet-4-6"
         },
         "glm-5.2": {
-          "name": "glm-5.2"
+          "name": "glm-5.2",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          },
+          "variants": {
+            "max-think": {
+              "reasoningEffort": "max"
+            }
+          }
         },
         "glm-5.3": {
-          "name": "glm-5.3"
+          "name": "glm-5.3",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          },
+          "variants": {
+            "max-think": {
+              "reasoningEffort": "max"
+            }
+          }
+        },
+        "gpt-5.4": {
+          "name": "gpt-5.4",
+          "limit": {
+            "context": 256000,
+            "output": 128000
+          }
+        },
+        "gpt-5.6-terra": {
+          "name": "gpt-5.6-terra",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
+        },
+        "auto-01": {
+          "name": "auto-01"
         }
       }
     },
@@ -64,6 +114,24 @@
       "type": "remote",
       "url": "https://mcp.deepwiki.com/mcp",
       "oauth": false
+    },
+    "grepika": {
+      "type": "local",
+      "command": [
+        "grepika",
+        "--mcp"
+      ],
+      "enabled": true,
+      "timeout": 60000
+    },
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "enabled": true,
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer YOUR_GITHUB_API_KEY_HERE"
+      }
     }
   },
   "tools": {
@@ -171,8 +239,10 @@
       }
     },
     "explore": {
+      "description": "Read-only local codebase navigation using grepika as primary search engine",
       "mode": "subagent",
       "model": "litellm/deepseek-v4-flash",
+      "prompt": "{file:./agents/explore.md}",
       "permission": {
         "*": "deny",
         "read": "allow",
@@ -181,6 +251,14 @@
         "list": "allow",
         "external_directory": "allow",
         "doom_loop": "allow",
+        "grepika_add_workspace": "allow",
+        "grepika_toc": "allow",
+        "grepika_search": "allow",
+        "grepika_outline": "allow",
+        "grepika_get": "allow",
+        "grepika_context": "allow",
+        "grepika_refs": "allow",
+        "grepika_index": "allow",
         "bash": {
           "*": "deny",
           "cat*": "allow",
@@ -246,7 +324,9 @@
         "glob": "allow",
         "grep": "allow",
         "list": "allow",
-        "edit": { "*": "ask" },
+        "edit": {
+          "*": "ask"
+        },
         "bash": {
           "*": "ask",
           "cat*": "allow",
