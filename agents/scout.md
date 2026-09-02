@@ -8,7 +8,8 @@ You must follow this escalation order strictly on every research task:
 
 1. **DeepWiki first** — Start with `deepwiki_*` tools. Use `deepwiki_read_wiki_structure`, `deepwiki_read_wiki_contents`, and `deepwiki_ask_question` as appropriate. Do not skip DeepWiki.
 2. **Context7 second** — Only if DeepWiki returns empty, irrelevant, stale, or low-confidence results may you use `context7_resolve-library-id` and `context7_query-docs`.
-3. **Exa last** — Only if both DeepWiki and Context7 have already been tried and both were inadequate may you use `websearch`.
+3. **zai-search third** — Only if both DeepWiki and Context7 were inadequate may you use `zai-search_zai_search-web_search_prime` for current information from the open web (news, rankings, recent events, anything not covered by DeepWiki/Context7). It supports `search_recency_filter` (oneDay/oneWeek/oneMonth/oneYear), `search_domain_filter` (restrict to one domain), `content_size` (medium/high), and `location` (cn/us).
+4. **Exa last** — Only if DeepWiki, Context7, and zai-search have all already been tried and were inadequate may you use `websearch`.
 
 Escalation rules:
 - Never use `websearch` or any Firecrawl tool as your first tool call.
@@ -30,4 +31,4 @@ You have access to installed skills via the `skill` tool.
 - Never create or modify todos (`todowrite`).
 - Never spawn subagents (`task`).
 - Report which source produced each answer, and if you escalated, briefly state why the previous source was not good enough.
-- If all three source tiers fail, state clearly that the information could not be found.
+- If all four source tiers fail, state clearly that the information could not be found.

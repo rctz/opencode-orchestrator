@@ -44,6 +44,27 @@
             "output": 128000
           }
         },
+        "glm-5.3-flash": {
+          "name": "glm-5.3-flash",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          },
+          "options": {
+            "reasoningEffort": "low"
+          },
+          "variants": {
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "max": {
+              "reasoningEffort": "max"
+            }
+          }
+        },
         "neuralwatt-glm-5.2": {
           "name": "neuralwatt-glm-5.2",
           "limit": {
@@ -102,7 +123,7 @@
             ]
           }
         },
-        "copilot-gpt-5.3-codex": {
+        "gpt-5.3-codex": {
           "name": "gpt-5.3-codex",
           "limit": {
             "context": 1000000,
@@ -124,6 +145,14 @@
   "default_agent": "orchestrator",
   "lsp": true,
   "mcp": {
+    "zai-search": {
+      "type": "remote",
+      "url": "YOUR_URL_HERE",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY_HERE"
+      },
+      "oauth": false
+    },
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp"
@@ -234,7 +263,7 @@
   },
   "plugin": [
     "@warp-dot-dev/opencode-warp",
-    "@cortexkit/opencode-magic-context@latest",
+    "@cortexkit/opencode-magic-context@0.41.1",
     "@slkiser/opencode-quota",
     "@dietrichgebert/ponytail"
   ],
@@ -245,7 +274,7 @@
   "agent": {
     "general": {
       "mode": "subagent",
-      "model": "litellm-openai/copilot-gpt-5.3-codex",
+      "model": "litellm/glm-5.3",
       "permission": {
         "read": "allow",
         "glob": "allow",
@@ -319,8 +348,8 @@
     "explore": {
       "description": "Read-only local codebase navigation using grepika as primary search engine",
       "mode": "subagent",
-      "model": "litellm-openai/gpt-5.6-luna",
-      "reasoningEffort": "low",
+      "model": "litellm/glm-5.3-flash",
+      "variant": "low",
       "prompt": "{file:./agents/explore.md}",
       "permission": {
         "*": "deny",
@@ -362,7 +391,7 @@
     "scout": {
       "description": "Read-only research subagent that prefers DeepWiki, then Context7, then web fallback",
       "mode": "subagent",
-      "model": "litellm-openai/gpt-5.6-luna",
+      "model": "litellm/glm-5.3",
       "prompt": "{file:./agents/scout.md}",
       "permission": {
         "*": "deny",
@@ -377,6 +406,7 @@
         "skill": "allow",
         "context7_*": "allow",
         "deepwiki_*": "allow",
+        "zai-search_*": "allow",
         "bash": {
           "*": "deny",
           "cat *": "allow",
@@ -401,8 +431,7 @@
     "orchestrator": {
       "description": "Orchestrates work through subagents first, while keeping direct built-in tools available for fallback and verification",
       "mode": "primary",
-      "model": "litellm-openai/gpt-5.6-sol",
-      "reasoningEffort": "max",
+      "model": "litellm/glm-5.3",
       "prompt": "{file:./agents/orchestrator.md}",
       "permission": {
         "read": "allow",
@@ -485,14 +514,14 @@
     },
     "compaction": {
       "mode": "primary",
-      "model": "litellm/deepseek-v4-pro",
+      "model": "litellm/glm-5.3",
       "permission": {
         "doom_loop": "allow"
       }
     },
     "writer": {
       "mode": "subagent",
-      "model": "litellm/deepseek-v4-flash",
+      "model": "litellm/glm-5.3-flash",
       "prompt": "{file:./agents/writer.md}",
       "permission": {
         "*": "deny",
