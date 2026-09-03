@@ -30,6 +30,13 @@
             "output": 128000
           }
         },
+        "copilot/opus-4-8": {
+          "name": "claude-opus-4.8",
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
+        },
         "claude-sonnet-4-6": {
           "name": "claude-sonnet-4-6",
           "limit": {
@@ -94,9 +101,7 @@
           "options": {
             "reasoningEffort": "max",
             "reasoningSummary": "auto",
-            "include": [
-              "reasoning.encrypted_content"
-            ]
+            "include": ["reasoning.encrypted_content"]
           },
           "variants": {
             "high": {
@@ -118,9 +123,7 @@
           "options": {
             "reasoningEffort": "medium",
             "reasoningSummary": "auto",
-            "include": [
-              "reasoning.encrypted_content"
-            ]
+            "include": ["reasoning.encrypted_content"]
           }
         },
         "gpt-5.3-codex": {
@@ -129,7 +132,7 @@
             "context": 1000000,
             "output": 128000
           }
-        },
+        }
       }
     },
     "opencode-go": {
@@ -174,13 +177,10 @@
     },
     "grepika": {
       "type": "local",
-      "command": [
-        "grepika",
-        "--mcp"
-      ],
+      "command": ["grepika", "--mcp"],
       "enabled": true,
       "timeout": 60000
-    },
+    }
   },
   "tools": {
     "chrome-devtools_*": true,
@@ -263,7 +263,7 @@
   },
   "plugin": [
     "@warp-dot-dev/opencode-warp",
-    "@cortexkit/opencode-magic-context@0.41.1",
+    "@cortexkit/opencode-magic-context@latest",
     "@slkiser/opencode-quota",
     "@dietrichgebert/ponytail"
   ],
